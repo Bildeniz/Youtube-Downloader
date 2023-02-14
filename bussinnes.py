@@ -40,7 +40,7 @@ class youtube:
 class gui_command:
     @staticmethod
     def check_button(stream_dict, combobox:ttk.Combobox, root:Tk):
-        combobox['values'] = list(stream_dict.keys())
+        combobox.configure(values=list(stream_dict.keys()))
         root.config(cursor='')
         root.grab_release()
 
@@ -55,7 +55,10 @@ class gui_command:
 
     @staticmethod
     def download(stream_dict, selectable_stream, download_location_entry, root):
-        root.config(cursor='wait')
-        stream_dict[selectable_stream['values'][selectable_stream.current()]].download(output_path=download_location_entry.get())
-        messagebox.showinfo('Youtube Downloader', 'Download is successfuly')
-        root.config(cursor='')
+        if selectable_stream.get() != 'Video downloading option':
+            root.config(cursor='wait')
+            stream_dict[selectable_stream['values'][selectable_stream.get()]].download(output_path=download_location_entry.get())
+            messagebox.showinfo('Youtube Downloader', 'Download is successfuly')
+            root.config(cursor='')
+        else:
+            pass
