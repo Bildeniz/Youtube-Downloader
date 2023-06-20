@@ -45,19 +45,19 @@ class gui_command:
         root.grab_release()
 
     @staticmethod
-    def locate_file(download_location_entry):
+    def locate_file(download_location_entry:ttk.Entry):
         file = filedialog.askdirectory()
         if file:
-            download_location_entry['state'] = 'normal'
+            download_location_entry.configure(state='normal')
             download_location_entry.delete(0, END)
             download_location_entry.insert(0, file)
-            download_location_entry['state'] = 'disabled'
+            download_location_entry.configure(state='disabled')
 
     @staticmethod
     def download(stream_dict, selectable_stream, download_location_entry, root):
         if selectable_stream.get() != 'Video downloading option':
             root.config(cursor='wait')
-            stream_dict[selectable_stream['values'][selectable_stream.get()]].download(output_path=download_location_entry.get())
+            stream_dict[selectable_stream.get()].download(output_path=download_location_entry.get())
             messagebox.showinfo('Youtube Downloader', 'Download is successfuly')
             root.config(cursor='')
         else:
